@@ -1,0 +1,78 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #05050f;
+  --bg2: #0a0a1a;
+  --bg3: #0f0f22;
+  --cyan: #00e5ff;
+  --cyan2: #00b4d8;
+  --purple: #8b5cf6;
+  --purple2: #6d28d9;
+  --gold: #fbbf24;
+  --pink: #f472b6;
+  --green: #34d399;
+  --red: #f87171;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--purple2);
+  border-radius: 3px;
+}
+
+/* Range input styling */
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  background: var(--glass-border);
+  height: 4px;
+  border-radius: 2px;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--cyan);
+  margin-top: -6px;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+canvas {
+  display: block;
+}
+
+button {
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: pointer;
+}
