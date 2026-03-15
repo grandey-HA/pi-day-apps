@@ -2,7 +2,7 @@ import { useRef, useEffect, useState, useCallback } from 'react'
 import { AppLayout, Stat, Btn, SliderRow, PiCompare, Card } from './shared'
 
 const COLOR = '#00e5ff'
-const MAX_POINTS = 100_000
+const PRESETS = [1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 
 export default function MonteCarlo() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -11,7 +11,8 @@ export default function MonteCarlo() {
   const animRef = useRef<number>(0)
   const runningRef = useRef(false)
 
-  const [speed, setSpeed] = useState(200)
+  const [maxPoints, setMaxPoints] = useState(100_000)
+  const [speed, setSpeed] = useState(1000)
   const [running, setRunning] = useState(false)
   const [stats, setStats] = useState({ inside: 0, total: 0, pi: 0 })
 
@@ -101,7 +102,7 @@ export default function MonteCarlo() {
     if (!runningRef.current) return
     const s = stateRef.current
     const batchSize = speed
-    for (let i = 0; i < batchSize && s.total < MAX_POINTS; i++) {
+    for (let i = 0; i < batchSize && s.total < maxPoints; i++) {
       const x = Math.random(), y = Math.random()
       const inside = (x - 0.5) ** 2 + (y - 0.5) ** 2 < 0.25
       if (inside) s.inside++
@@ -116,13 +117,13 @@ export default function MonteCarlo() {
     drawCanvas()
     drawHistory()
 
-    if (s.total < MAX_POINTS) {
+    if (s.total < maxPoints) {
       animRef.current = requestAnimationFrame(step)
     } else {
       runningRef.current = false
       setRunning(false)
     }
-  }, [speed, drawCanvas, drawHistory])
+  }, [speed, maxPoints, drawCanvas, drawHistory])
 
   const toggleRun = useCallback(() => {
     if (running) {
@@ -174,7 +175,7 @@ export default function MonteCarlo() {
         <Stat label="Points lancés" value={stats.total.toLocaleString()} color={COLOR} />
         <Stat label="Dans le cercle" value={stats.inside.toLocaleString()} color="#34d399" />
         <Stat label="Estimation π" value={stats.pi > 0 ? stats.pi.toFixed(6) : '—'} color={COLOR} mono />
-        <Stat label="Progression" value={`${((stats.total / MAX_POINTS) * 100).toFixed(1)}%`} />
+        <Stat label="Progression" value={`${((stats.total / maxPoints) * 100).toFixed(1)}%`} />
       </div>
 
       {stats.pi > 0 && <div style={{ marginBottom: 8 }}><PiCompare estimate={stats.pi} /></div>}
@@ -195,8 +196,16 @@ export default function MonteCarlo() {
       </Card>
 
       <Card style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        <SliderRow label="Vitesse (points/frame)" value={speed} min={50} max={2000} step={50} onChange={setSpeed} color={COLOR}
-          format={v => `${v.toLocaleString()}/fr`} />
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
+          <span style={{ fontSize: 11, color: 'var(--text2)', fontWeight: 600, marginRight: 2 }}>Cible :</span>
+          {PRESETS.map(p => (
+            <Btn key={p} onClick={() => { setMaxPoints(p); reset() }} color={COLOR} active={maxPoints === p}>
+              {p >= 1e9 ? '10⁹' : p >= 1e8 ? '10⁸' : p >= 1e7 ? '10⁷' : p >= 1e6 ? '10⁶' : p >= 1e5 ? '10⁵' : '10⁴'}
+            </Btn>
+          ))}
+        </div>
+        <SliderRow label="Vitesse (points/frame)" value={speed} min={1000} max={1_000_000} step={1000} onChange={setSpeed} color={COLOR}
+          format={v => v >= 1e6 ? `${(v/1e6).toFixed(1)}M/fr` : v >= 1e3 ? `${(v/1e3).toFixed(0)}k/fr` : `${v}/fr`} />
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           <Btn onClick={toggleRun} color={COLOR} active={running}>
             {running ? '⏸ Pause' : stats.total > 0 ? '▶ Reprendre' : '▶ Lancer'}
