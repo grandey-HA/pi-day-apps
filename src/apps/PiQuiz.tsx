@@ -123,7 +123,7 @@ export default function PiQuiz() {
     return (
       <AppLayout title="Quiz π Interactif" icon="🏆" color={COLOR} subtitle="Résultats finaux">
         <Card style={{ textAlign: 'center', padding: 40 }}>
-          <div style={{ fontSize: 64, marginBottom: 16 }}>
+          <div style={{ fontSize: 64, marginBottom: 8 }}>
             {score > 500 ? '🎉' : score > 200 ? '🥈' : '🥉'}
           </div>
           <div style={{ fontSize: 32, fontWeight: 700, color: COLOR, marginBottom: 8 }}>
@@ -161,7 +161,7 @@ export default function PiQuiz() {
       subtitle="10 questions sur π — décimales, formules, faits. Plus vite = plus de points!">
       {showConfetti && <canvas ref={confCanvasRef} style={{ position: 'fixed', inset: 0, zIndex: 200, pointerEvents: 'none' }} />}
 
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Stat label="Score" value={score.toString()} color={COLOR} />
         <Stat label="Question" value={`${qIdx + 1}/${QUESTIONS.length}`} />
         <Stat label="Vies" value={'❤️'.repeat(lives) + '🖤'.repeat(Math.max(0, 3 - lives))} />
@@ -169,12 +169,12 @@ export default function PiQuiz() {
       </div>
 
       {/* Progress */}
-      <div style={{ marginBottom: 20, background: 'rgba(255,255,255,0.05)', borderRadius: 4, height: 4 }}>
+      <div style={{ marginBottom: 10, background: 'rgba(255,255,255,0.05)', borderRadius: 4, height: 4 }}>
         <div style={{ width: `${progress}%`, height: '100%', background: `linear-gradient(90deg, ${COLOR}, #8b5cf6)`, borderRadius: 4, transition: 'width 0.4s' }} />
       </div>
 
       {/* Timer ring */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 10 }}>
         <svg width="60" height="60" style={{ transform: 'rotate(-90deg)' }}>
           <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="4" />
           <circle cx="30" cy="30" r="24" fill="none" stroke={timeLeft <= 5 ? '#f87171' : COLOR}
@@ -189,11 +189,11 @@ export default function PiQuiz() {
         </svg>
       </div>
 
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: 8 }}>
         <div style={{ fontSize: 11, color: COLOR, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 10 }}>
           {q.type === 'digit' ? '🔢 Décimale' : q.type === 'formula' ? '∑ Formule' : '💡 Culture π'}
         </div>
-        <div style={{ fontSize: 18, fontWeight: 600, lineHeight: 1.5, marginBottom: q.hint ? 8 : 0 }}>
+        <div style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.4, marginBottom: q.hint ? 8 : 0 }}>
           {q.prompt}
         </div>
         {q.hint && <div style={{ fontSize: 12, color: 'var(--text2)', fontFamily: 'Space Mono', marginTop: 6 }}>
@@ -217,7 +217,7 @@ export default function PiQuiz() {
               onClick={() => handleAnswer(opt)}
               disabled={!!selected}
               style={{
-                padding: '16px 20px', borderRadius: 12, fontSize: 14, fontWeight: 500, cursor: selected ? 'default' : 'pointer',
+                padding: '11px 16px', borderRadius: 10, fontSize: 14, fontWeight: 500, cursor: selected ? 'default' : 'pointer',
                 background: bg, border: `2px solid ${border}`, color: textColor,
                 textAlign: 'left', transition: 'all 0.2s', lineHeight: 1.4,
               }}>

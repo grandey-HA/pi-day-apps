@@ -104,7 +104,7 @@ export default function BaselSeries() {
 
   useEffect(() => {
     const canvas = canvasRef.current!
-    canvas.width = 680; canvas.height = 340
+    canvas.width = 600; canvas.height = 240
     draw()
   }, [draw])
 
@@ -128,20 +128,20 @@ export default function BaselSeries() {
       color={COLOR}
       subtitle="La somme de 1/n² converge vers π²/6 — une identité découverte par Euler en 1734."
     >
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Stat label="Termes Σ" value={terms.toLocaleString()} color={COLOR} />
         <Stat label="Σ(1/n²)" value={sum.toFixed(8)} color="#fbbf24" mono />
         <Stat label="√(6·Σ) ≈ π" value={pi.toFixed(8)} color={COLOR} mono />
         <Stat label="Erreur" value={Math.abs(pi - Math.PI).toExponential(2)} />
       </div>
 
-      <div style={{ marginBottom: 16 }}><PiCompare estimate={pi} /></div>
+      <div style={{ marginBottom: 8 }}><PiCompare estimate={pi} /></div>
 
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: 8 }}>
         <canvas ref={canvasRef} style={{ borderRadius: 10, width: '100%', border: '1px solid rgba(139,92,246,0.15)' }} />
       </Card>
 
-      <Card style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Card style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         <SliderRow label="Nombre de termes" value={terms} min={1} max={maxTerms} onChange={setTerms} color={COLOR}
           format={v => v.toLocaleString()} />
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
@@ -151,7 +151,7 @@ export default function BaselSeries() {
           <Btn onClick={() => { setTerms(1); setAutoPlay(false) }} color="#f87171">↺ Reset</Btn>
           <Btn onClick={() => setTerms(maxTerms)} color={COLOR}>⏭ Max ({maxTerms})</Btn>
         </div>
-        <div style={{ fontSize: 12, color: 'var(--text2)', lineHeight: 1.7 }}>
+        <div style={{ fontSize: 12, color: 'var(--text2)', lineHeight: 1.5 }}>
           Identité de Basel : <span style={{ fontFamily: 'Space Mono', color: COLOR }}>∑(1/n²) = π²/6</span>
           <br />Barres violettes = termes individuels 1/n². Ligne dorée = somme cumulée. Pointillé = π²/6.
         </div>

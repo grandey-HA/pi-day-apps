@@ -107,7 +107,7 @@ export default function ArchimedesPolygons() {
 
   useEffect(() => {
     const canvas = canvasRef.current!
-    canvas.width = 440; canvas.height = 440
+    canvas.width = 320; canvas.height = 320
     draw()
   }, [draw])
 
@@ -135,22 +135,22 @@ export default function ArchimedesPolygons() {
       color={COLOR}
       subtitle="Archimède encadre π entre le périmètre du polygone inscrit et du polygone circonscrit."
     >
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Stat label="Côtés" value={sides.toString()} color={COLOR} />
         <Stat label="Borne inf (inscrit)" value={inner.toFixed(8)} color={COLOR} mono />
         <Stat label="Borne sup (circonf.)" value={outer.toFixed(8)} color="#f87171" mono />
         <Stat label="Moyenne ≈ π" value={estimate.toFixed(8)} mono />
       </div>
 
-      <div style={{ marginBottom: 16 }}><PiCompare estimate={estimate} /></div>
+      <div style={{ marginBottom: 8 }}><PiCompare estimate={estimate} /></div>
 
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Card style={{ flex: '0 0 auto' }}>
           <canvas ref={canvasRef} style={{ borderRadius: 10, border: '1px solid rgba(251,191,36,0.15)' }} />
         </Card>
 
-        <Card style={{ flex: 1, minWidth: 240 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 16, color: COLOR }}>Encadrement d'Archimède</div>
+        <Card style={{ flex: 1, minWidth: 180 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 8, color: COLOR }}>Encadrement d'Archimède</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {[6, 12, 24, 48, 96, 192, 256, 1024, 4096].map(n => {
               const { inner: i, outer: o } = polygonPi(n)

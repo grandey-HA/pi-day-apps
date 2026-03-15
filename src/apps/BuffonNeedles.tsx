@@ -114,8 +114,8 @@ export default function BuffonNeedles() {
 
   useEffect(() => {
     const canvas = canvasRef.current!
-    canvas.width = 600
-    canvas.height = 380
+    canvas.width = 500
+    canvas.height = 260
     drawCanvas()
   }, [drawCanvas])
 
@@ -126,20 +126,20 @@ export default function BuffonNeedles() {
       color={COLOR}
       subtitle="Des aiguilles jetées au hasard sur des lignes parallèles estiment π via leur probabilité de croisement."
     >
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 8 }}>
         <Stat label="Aiguilles lancées" value={stats.total.toLocaleString()} />
         <Stat label="Croisements" value={stats.crosses.toLocaleString()} color={COLOR} />
         <Stat label="Estimation π" value={stats.pi > 0 ? stats.pi.toFixed(6) : '—'} color={COLOR} mono />
         <Stat label="Prob. croisement" value={stats.total > 0 ? (stats.crosses / stats.total * 100).toFixed(1) + '%' : '—'} />
       </div>
 
-      {stats.pi > 0 && <div style={{ marginBottom: 16 }}><PiCompare estimate={stats.pi} /></div>}
+      {stats.pi > 0 && <div style={{ marginBottom: 8 }}><PiCompare estimate={stats.pi} /></div>}
 
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: 8 }}>
         <canvas ref={canvasRef} style={{ borderRadius: 10, width: '100%', border: '1px solid rgba(244,114,182,0.15)' }} />
       </Card>
 
-      <Card style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Card style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         <SliderRow label="Vitesse (aiguilles/frame)" value={speed} min={1} max={50} onChange={setSpeed} color={COLOR}
           format={v => `${v}/fr`} />
         <SliderRow label="Longueur aiguille" value={needleLen} min={20} max={LINE_SPACING - 5} onChange={v => { setNeedleLen(v); reset() }}

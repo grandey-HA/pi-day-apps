@@ -79,7 +79,7 @@ export default function PiCircles() {
 
   useEffect(() => {
     const canvas = canvasRef.current!
-    canvas.width = 640; canvas.height = 420
+    canvas.width = 560; canvas.height = 320
     drawAll(circles)
   }, [drawAll, circles])
 
@@ -135,14 +135,14 @@ export default function PiCircles() {
   return (
     <AppLayout title="π dans les Cercles" icon="○" color={COLOR}
       subtitle="Dessinez des cercles sur le canvas : chaque cercle calcule π = C/D en temps réel.">
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Stat label="Cercles dessinés" value={circles.length.toString()} color={COLOR} />
         <Stat label="π moyen" value={avgPi > 0 ? avgPi.toFixed(6) : '—'} color={COLOR} mono />
         <Stat label="π réel" value={Math.PI.toFixed(6)} color="#fbbf24" mono />
         <Stat label="Erreur moy." value={avgPi > 0 ? Math.abs(avgPi - Math.PI).toExponential(2) : '—'} />
       </div>
 
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: 8 }}>
         <canvas ref={canvasRef}
           style={{ borderRadius: 10, width: '100%', cursor: 'crosshair', border: `1px solid ${COLOR}22`, userSelect: 'none' }}
           onMouseDown={onMouseDown} onMouseMove={onMouseMove} onMouseUp={onMouseUp}
@@ -151,7 +151,7 @@ export default function PiCircles() {
       </Card>
 
       {circles.length > 0 && (
-        <Card style={{ marginBottom: 16 }}>
+        <Card style={{ marginBottom: 8 }}>
           <div style={{ fontSize: 12, color: 'var(--text2)', marginBottom: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             Résultats
           </div>

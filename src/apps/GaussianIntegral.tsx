@@ -98,7 +98,7 @@ export default function GaussianIntegral() {
 
   useEffect(() => {
     const canvas = canvasRef.current!
-    canvas.width = 680; canvas.height = 360
+    canvas.width = 600; canvas.height = 250
     draw()
   }, [draw])
 
@@ -128,18 +128,18 @@ export default function GaussianIntegral() {
       color={COLOR}
       subtitle="L'intégrale ∫e⁻ˣ² dx sur ℝ vaut √π — une des identités les plus surprenantes des mathématiques."
     >
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Stat label="Estimation ∫e⁻ˣ²" value={result > 0 ? result.toFixed(6) : '—'} color={COLOR} mono />
         <Stat label="√π (vraie valeur)" value={Math.sqrt(Math.PI).toFixed(6)} color="#fbbf24" mono />
         <Stat label="Erreur" value={result > 0 ? Math.abs(result - Math.sqrt(Math.PI)).toExponential(2) : '—'} />
         <Stat label="Échantillons" value={samples.toLocaleString()} />
       </div>
 
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: 8 }}>
         <canvas ref={canvasRef} style={{ borderRadius: 10, width: '100%', border: '1px solid rgba(52,211,153,0.15)' }} />
       </Card>
 
-      <Card style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Card style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         <SliderRow label="Limite d'intégration ±" value={xMax} min={1} max={5} step={0.5} onChange={v => { setXMax(v); setPoints([]) }}
           color={COLOR} format={v => `±${v}`} />
         <SliderRow label="Nombre d'échantillons" value={samples} min={100} max={20000} step={100} onChange={setSamples}

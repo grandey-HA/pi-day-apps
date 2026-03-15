@@ -127,8 +127,8 @@ export default function DecimalHunt() {
 
   useEffect(() => {
     if (rouletteRef.current) {
-      rouletteRef.current.width = 320
-      rouletteRef.current.height = 320
+      rouletteRef.current.width = 260
+      rouletteRef.current.height = 260
     }
   }, [])
 
@@ -142,14 +142,14 @@ export default function DecimalHunt() {
   return (
     <AppLayout title="Chasse aux Décimales" icon="⌨" color={COLOR}
       subtitle="Mémorisez et tapez les décimales de π une par une. Chaque bonne réponse donne des points bonus!">
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Stat label="Position" value={`${currentPos + 1}/200`} color={COLOR} />
         <Stat label="Score" value={score.toLocaleString()} color={COLOR} />
         <Stat label="Série" value={streak.toString()} color={streak > 5 ? '#34d399' : 'var(--text)'} />
         <Stat label="Meilleure série" value={best.toString()} color="#fbbf24" />
       </div>
 
-      <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
         {(['type', 'roulette'] as const).map(m => (
           <button key={m} onClick={() => { setMode(m); reset() }}
             style={{
@@ -164,8 +164,8 @@ export default function DecimalHunt() {
       </div>
 
       {mode === 'type' && (
-        <Card style={{ marginBottom: 16 }}>
-          <div style={{ marginBottom: 16, fontFamily: 'Space Mono', fontSize: 28, letterSpacing: 6, textAlign: 'center' }}>
+        <Card style={{ marginBottom: 8 }}>
+          <div style={{ marginBottom: 10, fontFamily: 'Space Mono', fontSize: 22, letterSpacing: 4, textAlign: 'center' }}>
             3.
             {visDigits.split('').map((d, i) => {
               const absI = visStart + i
@@ -185,7 +185,7 @@ export default function DecimalHunt() {
             <span style={{ color: 'rgba(255,255,255,0.1)' }}>...</span>
           </div>
 
-          <div style={{ textAlign: 'center', marginBottom: 16, fontSize: 13, color: 'var(--text2)' }}>
+          <div style={{ textAlign: 'center', marginBottom: 10, fontSize: 12, color: 'var(--text2)' }}>
             Tapez le chiffre suivant sur votre clavier
           </div>
 
@@ -194,7 +194,7 @@ export default function DecimalHunt() {
             {[7,8,9,4,5,6,1,2,3,0].map(d => (
               <button key={d} onClick={() => handleKey(String(d))}
                 style={{
-                  width: 56, height: 56, borderRadius: 10, fontSize: 20, fontFamily: 'Space Mono',
+                  width: 46, height: 46, borderRadius: 8, fontSize: 17, fontFamily: 'Space Mono',
                   fontWeight: 700, cursor: 'pointer',
                   background: 'rgba(255,255,255,0.05)',
                   border: '1px solid rgba(255,255,255,0.1)',

@@ -129,8 +129,8 @@ export default function SqrtPi() {
   useEffect(() => {
     const canvas = canvasRef.current!
     const spiral = spiralCanvasRef.current!
-    canvas.width = 300; canvas.height = 300
-    spiral.width = 300; spiral.height = 300
+    canvas.width = 240; canvas.height = 240
+    spiral.width = 240; spiral.height = 240
     drawProof()
   }, [drawProof])
 
@@ -155,16 +155,16 @@ export default function SqrtPi() {
       color={COLOR}
       subtitle="√π ≈ 1.7724538... apparaît dans l'intégrale gaussienne et la fonction Gamma : Γ(1/2) = √π."
     >
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Stat label="√π" value={sqrtPi.toFixed(8)} color={COLOR} mono />
         <Stat label="(√π)²" value={Math.PI.toFixed(8)} color="#8b5cf6" mono />
         <Stat label="Γ(1/2)" value={sqrtPi.toFixed(8)} color="#fbbf24" mono />
         <Stat label="erf(∞)" value="1.000000" />
       </div>
 
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Card style={{ flex: '0 0 auto' }}>
-          <div style={{ fontSize: 12, color: 'var(--text2)', marginBottom: 8, fontWeight: 600 }}>Spirale de √π</div>
+          <div style={{ fontSize: 11, color: 'var(--text2)', marginBottom: 6, fontWeight: 600 }}>Spirale de √π</div>
           <canvas ref={spiralCanvasRef} style={{ borderRadius: 10, border: `1px solid ${COLOR}33` }} />
           <div style={{ marginTop: 8, display: 'flex', gap: 8 }}>
             <button
@@ -180,12 +180,12 @@ export default function SqrtPi() {
         </Card>
 
         <Card style={{ flex: '0 0 auto' }}>
-          <div style={{ fontSize: 12, color: 'var(--text2)', marginBottom: 8, fontWeight: 600 }}>Preuve géométrique</div>
+          <div style={{ fontSize: 11, color: 'var(--text2)', marginBottom: 6, fontWeight: 600 }}>Preuve géométrique</div>
           <canvas ref={canvasRef} style={{ borderRadius: 10, border: `1px solid ${COLOR}33` }} />
         </Card>
 
-        <Card style={{ flex: 1, minWidth: 200 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: COLOR, marginBottom: 12 }}>Apparitions de √π</div>
+        <Card style={{ flex: 1, minWidth: 160 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: COLOR, marginBottom: 8 }}>Apparitions de √π</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {[
               { formula: '∫₋∞^∞ e⁻ˣ² dx', value: '= √π', label: 'Intégrale gaussienne' },

@@ -151,7 +151,7 @@ export default function MonteCarlo() {
     const hist = histCanvasRef.current!
     const ro = new ResizeObserver(() => {
       const rect = canvas.parentElement!.getBoundingClientRect()
-      const size = Math.min(rect.width, 400)
+      const size = Math.min(rect.width, 290)
       canvas.width = size
       canvas.height = size
       hist.width = rect.width - size - 20
@@ -177,24 +177,24 @@ export default function MonteCarlo() {
         <Stat label="Progression" value={`${((stats.total / MAX_POINTS) * 100).toFixed(1)}%`} />
       </div>
 
-      {stats.pi > 0 && <div style={{ marginBottom: 16 }}><PiCompare estimate={stats.pi} /></div>}
+      {stats.pi > 0 && <div style={{ marginBottom: 8 }}><PiCompare estimate={stats.pi} /></div>}
 
-      <Card style={{ marginBottom: 16, display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <Card style={{ marginBottom: 8, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'flex-start' }}>
         <div ref={el => { if (el) {
           const canvas = canvasRef.current!
           canvas.width = 400; canvas.height = 400
         }}} style={{ flex: '0 0 auto' }}>
           <canvas ref={canvasRef} style={{ borderRadius: 12, border: '1px solid rgba(0,229,255,0.15)' }} />
         </div>
-        <div style={{ flex: 1, minWidth: 200, display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <canvas ref={histCanvasRef} style={{ borderRadius: 8, border: '1px solid rgba(255,255,255,0.07)', width: '100%', height: 200 }} />
+        <div style={{ flex: 1, minWidth: 160, display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <canvas ref={histCanvasRef} style={{ borderRadius: 8, border: '1px solid rgba(255,255,255,0.07)', width: '100%', height: 150 }} />
           <div style={{ fontSize: 11, color: 'var(--text2)', textAlign: 'center', fontFamily: 'Space Mono' }}>
             Convergence vers π au fil du temps
           </div>
         </div>
       </Card>
 
-      <Card style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Card style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         <SliderRow label="Vitesse (points/frame)" value={speed} min={50} max={2000} step={50} onChange={setSpeed} color={COLOR}
           format={v => `${v.toLocaleString()}/fr`} />
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>

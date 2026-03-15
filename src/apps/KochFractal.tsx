@@ -109,7 +109,7 @@ export default function KochFractal() {
 
   useEffect(() => {
     const canvas = canvasRef.current!
-    canvas.width = 520; canvas.height = 480
+    canvas.width = 420; canvas.height = 370
     draw()
   }, [draw])
 
@@ -120,21 +120,21 @@ export default function KochFractal() {
       color={COLOR}
       subtitle="Le flocon de Koch a un périmètre infini mais une aire finie — et π se cache dans ses cercles limitants."
     >
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Stat label="Itérations" value={iterations.toString()} color={COLOR} />
         <Stat label="Segments" value={numSegments.toLocaleString()} />
         <Stat label="Longueur seg." value={segLength.toFixed(6)} color="#fbbf24" mono />
         <Stat label="Périmètre relatif" value={perimeter.toFixed(4)} color={COLOR} mono />
       </div>
 
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <Card style={{ flex: '0 0 auto' }}>
           <canvas ref={canvasRef} style={{ borderRadius: 10, border: `1px solid ${COLOR}22` }} />
         </Card>
 
-        <Card style={{ flex: 1, minWidth: 220 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: COLOR, marginBottom: 12 }}>π dans les fractales</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 12 }}>
+        <Card style={{ flex: 1, minWidth: 180 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: COLOR, marginBottom: 8 }}>π dans les fractales</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 7, fontSize: 12 }}>
             <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 8, padding: '10px 12px' }}>
               <div style={{ fontFamily: 'Space Mono', color: COLOR, marginBottom: 4 }}>Aire du flocon</div>
               <div style={{ color: 'var(--text2)' }}>A = (2√3/5) × s² converge</div>
