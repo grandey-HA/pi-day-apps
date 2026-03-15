@@ -9,6 +9,7 @@ import KochFractal from './apps/KochFractal'
 import DecimalHunt from './apps/DecimalHunt'
 import PiCircles from './apps/PiCircles'
 import PiQuiz from './apps/PiQuiz'
+import DuckFriend from './apps/DuckFriend'
 
 const APPS = [
   { id: 0, icon: '🎲', label: 'Monte Carlo', color: '#00e5ff', component: MonteCarlo },
@@ -22,6 +23,8 @@ const APPS = [
   { id: 8, icon: '○', label: 'π dans les Cercles', color: '#2dd4bf', component: PiCircles },
   { id: 9, icon: '🏆', label: 'Quiz π Interactif', color: '#e879f9', component: PiQuiz },
 ]
+
+const DUCK_APP = { id: 10, icon: '🦆', label: 'Duck Friend', color: '#f59e0b', component: DuckFriend }
 
 const HEADER_H = 50
 const TAB_H = 36
@@ -78,7 +81,27 @@ function PiValue({ value }: { value: number }) {
 export default function App() {
   const [active, setActive] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
-  const ActiveComponent = APPS[active].component
+  const [duckUnlocked, setDuckUnlocked] = useState(false)
+  const [showDuckModal, setShowDuckModal] = useState(false)
+  const [duckInput, setDuckInput] = useState('')
+  const [duckError, setDuckError] = useState(false)
+
+  const allApps = duckUnlocked ? [...APPS, DUCK_APP] : APPS
+  const activeApp = allApps.find(a => a.id === active) ?? APPS[0]
+  const ActiveComponent = activeApp.component
+
+  const submitDuckPassword = () => {
+    if (duckInput.toLowerCase() === 'moncanard') {
+      setDuckUnlocked(true)
+      setShowDuckModal(false)
+      setDuckInput('')
+      setDuckError(false)
+      setActive(10)
+    } else {
+      setDuckError(true)
+      setTimeout(() => setDuckError(false), 800)
+    }
+  }
 
   return (
     <div style={{ minHeight: '100vh', position: 'relative', display: 'flex', flexDirection: 'column' }}>
@@ -120,6 +143,46 @@ export default function App() {
         </div>
       </header>
 
+      {showDuckModal && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 200,
+          background: 'rgba(5,5,15,0.85)', backdropFilter: 'blur(12px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }} onClick={() => { setShowDuckModal(false); setDuckInput('') }}>
+          <div style={{
+            background: 'rgba(15,15,30,0.98)', border: '1px solid rgba(245,158,11,0.35)',
+            borderRadius: 16, padding: '28px 32px', width: 300,
+            boxShadow: '0 0 40px rgba(245,158,11,0.15)',
+          }} onClick={e => e.stopPropagation()}>
+            <div style={{ fontSize: 36, textAlign: 'center', marginBottom: 12 }}>🦆</div>
+            <div style={{ fontSize: 14, fontWeight: 700, textAlign: 'center', marginBottom: 4 }}>Zone restreinte</div>
+            <div style={{ fontSize: 11, color: 'var(--text2)', textAlign: 'center', marginBottom: 18 }}>Mot de passe requis</div>
+            <input
+              autoFocus
+              type="password"
+              value={duckInput}
+              onChange={e => setDuckInput(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && submitDuckPassword()}
+              placeholder="mot de passe..."
+              style={{
+                width: '100%', padding: '10px 12px', borderRadius: 8, fontSize: 14,
+                background: duckError ? 'rgba(248,113,113,0.12)' : 'rgba(255,255,255,0.05)',
+                border: `1px solid ${duckError ? '#f87171' : 'rgba(245,158,11,0.3)'}`,
+                color: 'var(--text)', outline: 'none', fontFamily: 'Space Mono',
+                boxSizing: 'border-box',
+                transition: 'border-color 0.2s, background 0.2s',
+              }}
+            />
+            {duckError && <div style={{ fontSize: 11, color: '#f87171', marginTop: 6, textAlign: 'center' }}>Mauvais mot de passe 🦆</div>}
+            <button type="button" onClick={submitDuckPassword} style={{
+              width: '100%', marginTop: 14, padding: '10px', borderRadius: 8,
+              background: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.4)',
+              color: '#f59e0b', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+            }}>Entrer</button>
+          </div>
+        </div>
+      )}
+
       {menuOpen && (
         <div style={{
           position: 'fixed', inset: 0, zIndex: 90,
@@ -132,8 +195,8 @@ export default function App() {
             borderLeft: '1px solid rgba(139,92,246,0.3)',
             paddingTop: HEADER_H + TAB_H + 8, overflowY: 'auto',
           }} onClick={e => e.stopPropagation()}>
-            {APPS.map(app => (
-              <button key={app.id} onClick={() => { setActive(app.id); setMenuOpen(false) }}
+            {allApps.map(app => (
+              <button type="button" key={app.id} onClick={() => { setActive(app.id); setMenuOpen(false) }}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 10,
                   width: '100%', padding: '10px 14px', textAlign: 'left',
@@ -154,11 +217,11 @@ export default function App() {
         position: 'fixed', top: HEADER_H, left: 0, right: 0, zIndex: 80,
         background: 'rgba(5,5,15,0.9)', backdropFilter: 'blur(16px)',
         borderBottom: '1px solid rgba(255,255,255,0.06)',
-        overflowX: 'auto', display: 'flex', height: TAB_H,
+        overflowX: 'auto', display: 'flex', height: TAB_H, alignItems: 'center',
         scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch',
       }}>
-        {APPS.map(app => (
-          <button key={app.id} onClick={() => setActive(app.id)}
+        {allApps.map(app => (
+          <button type="button" key={app.id} onClick={() => setActive(app.id)}
             style={{
               flex: '0 0 auto', padding: '0 13px', height: TAB_H,
               display: 'flex', alignItems: 'center', gap: 5,
@@ -172,6 +235,18 @@ export default function App() {
             <span>{app.label}</span>
           </button>
         ))}
+        {!duckUnlocked && (
+          <button type="button" onClick={() => setShowDuckModal(true)}
+            title="???"
+            style={{
+              flex: '0 0 auto', padding: '0 10px', height: TAB_H,
+              background: 'none', border: 'none', cursor: 'pointer',
+              opacity: 0.15, fontSize: 14, transition: 'opacity 0.3s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.45')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '0.15')}
+          >🔒</button>
+        )}
       </div>
 
       <main style={{
